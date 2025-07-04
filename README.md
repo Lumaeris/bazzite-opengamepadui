@@ -2,11 +2,12 @@
 
 ## To-do
 
-At this point I don't know if there's even a config file so I can change it instead of doing an OpenGamepadUI fork.
-
 * [ ] Add a way to switch to desktop mode
+* * "Exit" button acts like "Restart Steam" on Steam Gaming Mode, probably rename that as well.
 * [ ] Change boot animation
-* [ ] Somehow add a screen keyboard?
+* [x] Somehow add a screen keyboard?
+* * Apparently after selecting the “Steam Deck” controller, it realized it needed to bring up the keyboard. It's not perfect, but it's something at least.
+* [ ] Open the Steam minified UI when opening any Steam game
 
 # BlueBuild Template &nbsp; [![bluebuild build badge](https://github.com/blue-build/template/actions/workflows/build.yml/badge.svg)](https://github.com/blue-build/template/actions/workflows/build.yml)
 
