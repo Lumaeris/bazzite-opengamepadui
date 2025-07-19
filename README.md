@@ -8,6 +8,7 @@
 * [x] Somehow add a screen keyboard?
 * * Apparently after selecting the “Steam Deck” controller, it realized it needed to bring up the keyboard. It's not perfect, but it's something at least.
 * [ ] Open the Steam minified UI when opening any Steam game
+* [ ] Add a way to automate installing the latest RPMs
 
 # BlueBuild Template &nbsp; [![bluebuild build badge](https://github.com/blue-build/template/actions/workflows/build.yml/badge.svg)](https://github.com/blue-build/template/actions/workflows/build.yml)
 
