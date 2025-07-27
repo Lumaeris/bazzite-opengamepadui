@@ -2,18 +2,12 @@ modules:
   - type: script
     scripts:
       - opengamepadui-session.sh
+      - install-packages.sh
 
   - type: files
     files:
       - source: system
         destination: /
-
-  - type: dnf
-    install:
-      packages:
-        - https://github.com/ShadowBlip/OpenGamepadUI/releases/download/v0.40.4/opengamepadui-0.40.4-1.x86_64.rpm
-        - https://github.com/ShadowBlip/InputPlumber/releases/download/v0.60.5/inputplumber-0.60.5-1.x86_64.rpm
-        - https://github.com/ShadowBlip/PowerStation/releases/download/v0.6.1/powerstation-0.6.1-1.x86_64.rpm
 
   - type: systemd
     system:
