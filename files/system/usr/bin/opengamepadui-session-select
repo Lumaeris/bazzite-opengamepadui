@@ -17,6 +17,12 @@ SENTINEL_FILE="steamos-session-select"
 # For sanity this shipped file must be present, to ensure we're still on a normal-looking steamos setup.
 CHECK_FILE="/etc/sddm.conf.d/steamos.conf"
 
+if [[ ! -f "$HOME/.config/bazzite/enable_steam_gamemode_flag" ]]; then
+	STEAM_GAMEMODE_ENABLE=0
+else
+	STEAM_GAMEMODE_ENABLE=1
+fi
+
 session="${1:-gamescope}"
 session_type="wayland"
 
@@ -75,17 +81,35 @@ case "$session" in
 		create_sentinel=1
 	;;
 	gamescope)
-		session_launcher="gamescope-session.desktop"
-    	create_sentinel=1
+		if [[ ${STEAM_GAMEMODE_ENABLE} == 1 ]]; then
+			session_launcher="gamescope-session-steam.desktop"
+			create_sentinel=1
+		elif [[ ${STEAM_GAMEMODE_ENABLE} == 0 ]]; then
+			session_launcher="gamescope-session-opengamepadui.desktop"
+		fi
 	;;
 	opengamepadui)
 		session_launcher="gamescope-session-opengamepadui.desktop"
+	;;
+	steam)
+		session_launcher="gamescope-session-steam.desktop"
+		create_sentinel=1
 	;;
 	*)
 		echo >&2 "!! Unrecognized session '$session'"
 		exit 1
 	;;
 esac
+
+if [[ $session_launcher == 'gamescope-session-opengamepadui.desktop' ]]; then
+	systemctl start powerstation
+	systemctl start inputplumber
+	systemctl start inputplumber-suspend
+else
+	systemctl stop powerstation
+	systemctl stop inputplumber
+	systemctl stop inputplumber-suspend
+fi
 
 echo "Updated user selected session to $session_launcher"
 

@@ -13,3 +13,5 @@ popd > /dev/null
 rm -rf "${dir}"
 rm /usr/share/wayland-sessions/gamescope-session.desktop
 ln -s gamescope-session-opengamepadui.desktop /usr/share/wayland-sessions/gamescope-session.desktop
+rm /usr/bin/steamos-session-select
+ln -s opengamepadui-session-select /usr/bin/steamos-session-select
