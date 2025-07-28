@@ -11,5 +11,5 @@ modules:
 
   - type: script
     snippets:
-      - "echo Waiting for 2 minutes in case Plasma image build fails..."
-      - "sleep 120"
+      - "echo Waiting for 6 minutes in case Plasma image build fails..."
+      - "sleep 360"

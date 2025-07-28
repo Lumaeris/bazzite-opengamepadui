@@ -17,8 +17,7 @@ modules:
     scripts:
       - install-packages.sh
     snippets:
-      - "rm /usr/bin/steamos-session-select"
-      - "cp /usr/bin/opengamepadui-session-select /usr/bin/steamos-session-select"
+      - "cp -f /usr/bin/steamos-session-select /usr/bin/opengamepadui-session-select"
 
   - type: systemd
     system:

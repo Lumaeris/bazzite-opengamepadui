@@ -39,24 +39,24 @@ fi
 
 # Update config sentinel
 if [[ -z $SENTINEL_CREATED ]]; then
-	[[ $EUID == 0 ]] && die "Running $0 as root is not allowed"
+  [[ $EUID == 0 ]] && die "Running $0 as root is not allowed"
 
-	[[ -n ${HOME+x} ]] || die "No \$HOME variable"
-	config_dir="${XDG_CONF_DIR:-"$HOME/.config"}"
-	session_type=$(
-		cd "$HOME"
-		mkdir -p "$config_dir"
-		cd "$config_dir"
-		if [[ -f "steamos-session-type" ]]; then
-			cp steamos-session-type "$SENTINEL_FILE"
-		else
-			echo "x11" >"$SENTINEL_FILE"
-		fi
-		cat "$SENTINEL_FILE"
-	)
+  [[ -n ${HOME+x} ]] || die "No \$HOME variable"
+  config_dir="${XDG_CONF_DIR:-"$HOME/.config"}"
+  session_type=$(
+    cd "$HOME"
+    mkdir -p "$config_dir"
+    cd "$config_dir"
+    if [[ -f "steamos-session-type" ]]; then
+      cp steamos-session-type "$SENTINEL_FILE"
+    else
+      echo "wayland" > "$SENTINEL_FILE"
+    fi
+    cat "$SENTINEL_FILE"
+  )
 
-	# If we were executed as a session user and then re-execute as root below, we don't want to set root's sentinel too
-	export SENTINEL_CREATED=1
+  # If we were executed as a session user and then re-execute as root below, we don't want to set root's sentinel too
+  export SENTINEL_CREATED=1
 fi
 
 # We use "plasma" as "desktop" to hook up to SteamOS's scripts
