@@ -2,6 +2,9 @@ modules:
   - type: script
     scripts:
       - opengamepadui-session.sh
+    snippets:
+      - "cp /etc/xdg/autostart/steam.desktop /etc/skel/.config/autostart/steam.desktop"
+      - "sed -i 's@\[Desktop Entry\]@\[Desktop Entry\]\nHidden=true@g' /etc/skel/.config/autostart/steam.desktop"
 
   - type: dnf
     install:
