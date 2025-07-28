@@ -19,8 +19,11 @@ CHECK_FILE="/etc/sddm.conf.d/steamos.conf"
 
 if [[ ! -f "$HOME/.config/bazzite/enable_steam_gamemode_flag" ]]; then
 	STEAM_GAMEMODE_ENABLE=0
+	cp -f "/etc/xdg/autostart/steam.desktop" "$HOME/.config/autostart/steam.desktop"
+	sed -i 's@\[Desktop Entry\]@\[Desktop Entry\]\nHidden=true@g' $HOME/.config/autostart/steam.desktop
 else
 	STEAM_GAMEMODE_ENABLE=1
+	rm -f "$HOME/.config/autostart/steam.desktop"
 fi
 
 session="${1:-gamescope}"
