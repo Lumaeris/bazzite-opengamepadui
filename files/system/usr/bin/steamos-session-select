@@ -39,24 +39,24 @@ fi
 
 # Update config sentinel
 if [[ -z $SENTINEL_CREATED ]]; then
-  [[ $EUID == 0 ]] && die "Running $0 as root is not allowed"
+	[[ $EUID == 0 ]] && die "Running $0 as root is not allowed"
 
-  [[ -n ${HOME+x} ]] || die "No \$HOME variable"
-  config_dir="${XDG_CONF_DIR:-"$HOME/.config"}"
-  session_type=$(
-    cd "$HOME"
-    mkdir -p "$config_dir"
-    cd "$config_dir"
-    if [[ -f "steamos-session-type" ]]; then
-      cp steamos-session-type "$SENTINEL_FILE"
-    else
-      echo "wayland" > "$SENTINEL_FILE"
-    fi
-    cat "$SENTINEL_FILE"
-  )
+	[[ -n ${HOME+x} ]] || die "No \$HOME variable"
+	config_dir="${XDG_CONF_DIR:-"$HOME/.config"}"
+	session_type=$(
+		cd "$HOME"
+		mkdir -p "$config_dir"
+		cd "$config_dir"
+		if [[ -f "steamos-session-type" ]]; then
+			cp steamos-session-type "$SENTINEL_FILE"
+		else
+			echo "wayland" > "$SENTINEL_FILE"
+		fi
+		cat "$SENTINEL_FILE"
+	)
 
-  # If we were executed as a session user and then re-execute as root below, we don't want to set root's sentinel too
-  export SENTINEL_CREATED=1
+	# If we were executed as a session user and then re-execute as root below, we don't want to set root's sentinel too
+	export SENTINEL_CREATED=1
 fi
 
 # We use "plasma" as "desktop" to hook up to SteamOS's scripts
@@ -104,15 +104,16 @@ case "$session" in
 	;;
 esac
 
-if [[ $session_launcher == 'gamescope-session-opengamepadui.desktop' ]]; then
-	systemctl start powerstation
-	systemctl start inputplumber
-	systemctl start inputplumber-suspend
-else
-	systemctl stop powerstation
-	systemctl stop inputplumber
-	systemctl stop inputplumber-suspend
-fi
+# TODO: Figure out how to use InputPlumber only on OGUI using other method
+#if [[ $session_launcher == 'gamescope-session-opengamepadui.desktop' ]]; then
+#	systemctl start powerstation 2>/dev/null || true
+#	systemctl start inputplumber 2>/dev/null || true
+#	systemctl start inputplumber-suspend 2>/dev/null || true
+#else
+#	systemctl stop powerstation 2>/dev/null || true
+#	systemctl stop inputplumber 2>/dev/null || true
+#	systemctl stop inputplumber-suspend 2>/dev/null || true
+#fi
 
 echo "Updated user selected session to $session_launcher"
 
