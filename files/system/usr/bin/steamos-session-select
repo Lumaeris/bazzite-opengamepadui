@@ -85,10 +85,10 @@ case "$session" in
 		create_sentinel=1
 	;;
 	gamescope)
-		if [[ ${STEAM_GAMEMODE_ENABLE} == 1 ]]; then
+		if [[ $STEAM_GAMEMODE_ENABLE == 1 ]]; then
 			session_launcher="gamescope-session-steam.desktop"
 			create_sentinel=1
-		elif [[ ${STEAM_GAMEMODE_ENABLE} == 0 ]]; then
+		elif [[ $STEAM_GAMEMODE_ENABLE == 0 ]]; then
 			session_launcher="gamescope-session-opengamepadui.desktop"
 		fi
 	;;
@@ -106,15 +106,15 @@ case "$session" in
 esac
 
 # TODO: Figure out how to use InputPlumber only on OGUI using other method
-#if [[ $session_launcher == 'gamescope-session-opengamepadui.desktop' ]]; then
+if [[ $session_launcher == 'gamescope-session-opengamepadui.desktop' ]]; then
 #	systemctl start powerstation 2>/dev/null || true
-#	systemctl start inputplumber 2>/dev/null || true
+	systemctl start inputplumber 2>/dev/null || true
 #	systemctl start inputplumber-suspend 2>/dev/null || true
-#else
+else
 #	systemctl stop powerstation 2>/dev/null || true
-#	systemctl stop inputplumber 2>/dev/null || true
+	systemctl stop inputplumber 2>/dev/null || true
 #	systemctl stop inputplumber-suspend 2>/dev/null || true
-#fi
+fi
 
 echo "Updated user selected session to $session_launcher"
 
