@@ -18,12 +18,12 @@ SENTINEL_FILE="steamos-session-select"
 CHECK_FILE="/etc/sddm.conf.d/steamos.conf"
 
 if [[ ! -f "$HOME/.config/bazzite/enable_steam_gamemode_flag" ]]; then
-	STEAM_GAMEMODE_ENABLE=0
+	STEAM_GAMEMODE_ENABLE=false
 	mkdir -p "$HOME/.config/autostart"
 	cp -f "/etc/xdg/autostart/steam.desktop" "$HOME/.config/autostart/steam.desktop"
 	sed -i 's@\[Desktop Entry\]@\[Desktop Entry\]\nHidden=true@g' $HOME/.config/autostart/steam.desktop
 else
-	STEAM_GAMEMODE_ENABLE=1
+	STEAM_GAMEMODE_ENABLE=true
 	rm -f "$HOME/.config/autostart/steam.desktop"
 fi
 
@@ -85,10 +85,10 @@ case "$session" in
 		create_sentinel=1
 	;;
 	gamescope)
-		if [[ $STEAM_GAMEMODE_ENABLE == 1 ]]; then
+		if $STEAM_GAMEMODE_ENABLE; then
 			session_launcher="gamescope-session-steam.desktop"
 			create_sentinel=1
-		elif [[ $STEAM_GAMEMODE_ENABLE == 0 ]]; then
+		elif ! $STEAM_GAMEMODE_ENABLE; then
 			session_launcher="gamescope-session-opengamepadui.desktop"
 		fi
 	;;
@@ -107,13 +107,13 @@ esac
 
 # TODO: Figure out how to use InputPlumber only on OGUI using other method
 if [[ $session_launcher == 'gamescope-session-opengamepadui.desktop' ]]; then
-#	systemctl start powerstation 2>/dev/null || true
+	systemctl start powerstation 2>/dev/null || true
 	systemctl start inputplumber 2>/dev/null || true
-#	systemctl start inputplumber-suspend 2>/dev/null || true
+	systemctl start inputplumber-suspend 2>/dev/null || true
 else
-#	systemctl stop powerstation 2>/dev/null || true
+	systemctl stop powerstation 2>/dev/null || true
 	systemctl stop inputplumber 2>/dev/null || true
-#	systemctl stop inputplumber-suspend 2>/dev/null || true
+	systemctl stop inputplumber-suspend 2>/dev/null || true
 fi
 
 echo "Updated user selected session to $session_launcher"
