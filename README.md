@@ -2,7 +2,7 @@
 
 ## To-do
 
-* [x] Add a way to switch to desktop mode (only on my fork for now)
+* [x] Add a way to switch to desktop mode
 * * "Exit" button acts like "Restart Steam" on Steam Gaming Mode, probably rename that as well.
 * [ ] Change boot animation
 * [x] Somehow add a screen keyboard?
@@ -10,6 +10,7 @@
 * [ ] Open the Steam minified UI when opening any Steam game
 * [x] Add a way to automate installing the latest RPMs
 * [ ] Add an ujust script to turn off OGUI in favor of Steam Gaming Mode
+* * [ ] ... and figure out a proper method for switching to Steam Gaming Mode
 
 Note: In my testings InputPlumber takes over the Steam Controller entirely, so it's not ideal for now to use it properly on Desktop mode and switching to Steam Gaming Mode using ujust script, which doesn't exist yet. For now if you rebased and want Steam Gaming Mode back or use desktop mode, you have to rollback to official Bazzite-Deck image for the time being.
 

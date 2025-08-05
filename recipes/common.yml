@@ -3,11 +3,6 @@ modules:
     scripts:
       - opengamepadui-session.sh
 
-  - type: dnf
-    install:
-      packages:
-        - opengamepadui-0.40.4-1.x86_64.rpm
-
   - type: files
     files:
       - source: system
