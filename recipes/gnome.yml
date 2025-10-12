@@ -8,8 +8,3 @@ image-version: stable-42
 
 modules:
   - from-file: common.yml
-
-  - type: script
-    snippets:
-      - "echo Waiting for 6 minutes in case Plasma image build fails..."
-      - "sleep 360"

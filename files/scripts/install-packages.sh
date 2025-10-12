@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
 # this script is somewhat based on https://github.com/askpng/solarpowered/blob/main/files/scripts/base/bazzite.sh
-# NOTE: this script may break sometimes for some obscure reason, so we have to restart the building of the images
 
 set -ouex pipefail
 
-OGUI_TAG=$(curl -s https://api.github.com/repos/ShadowBlip/OpenGamepadUI/releases | grep tag_name | cut -d : -f2 | tr -d 'v", ' | head -1)
-IP_TAG=$(curl -s https://api.github.com/repos/ShadowBlip/InputPlumber/releases | grep tag_name | cut -d : -f2 | tr -d 'v", ' | head -1)
-PS_TAG=$(curl -s https://api.github.com/repos/ShadowBlip/PowerStation/releases | grep tag_name | cut -d : -f2 | tr -d 'v", ' | head -1)
+OGUI_TAG=$(curl --fail --retry 5 --retry-delay 5 --retry-all-errors -s https://api.github.com/repos/ShadowBlip/OpenGamepadUI/releases/latest | grep tag_name | cut -d : -f2 | tr -d 'v", ' | head -1)
+IP_TAG=$(curl --fail --retry 5 --retry-delay 5 --retry-all-errors -s https://api.github.com/repos/ShadowBlip/InputPlumber/releases/latest | grep tag_name | cut -d : -f2 | tr -d 'v", ' | head -1)
+PS_TAG=$(curl --fail --retry 5 --retry-delay 5 --retry-all-errors -s https://api.github.com/repos/ShadowBlip/PowerStation/releases/latest | grep tag_name | cut -d : -f2 | tr -d 'v", ' | head -1)
 
 echo 'Installing OpenGamepadUI and related packages.'
 dnf5 install -y \
